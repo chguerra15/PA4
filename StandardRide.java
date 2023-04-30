@@ -11,39 +11,49 @@ public class StandardRide implements RideScheduler{
     private ArrayList<String> assignments;
 
     public StandardRide(){
-        /*TODO*/
+        this.vehicles = new ArrayList<Vehicle>();
+        this.passengers = new ArrayList<Passenger>();
+        this.assignments = new ArrayList<String>();
     }
-
 
     public ArrayList<Vehicle> getVehicles() {
-        /*TODO*/
-        return null;
+        return this.vehicles;
     }
-
 
     public ArrayList<Passenger> getPassengers() {
-        /*TODO*/
-        return null;
+        return this.passengers;
     }
 
-
     public boolean addPassenger(Passenger p) {
-        /*TODO*/
-        return false;
+        return this.passengers.add(p);
     }
 
     public boolean addVehicle(Vehicle v) {
-        /*TODO*/
-        return false;
+        return this.vehicles.add(v);
     }
 
     public void assignPassengerToVehicle() throws OperationDeniedException {
-        /*TODO*/
+        // Check that each passenger has exactly one vehicle assigned
+        if (this.passengers.size() != this.vehicles.size()) {
+            throw new OperationDeniedException(this.MISMATCH_MSG);
+        }
+
+        // Clear the previous assignments
+        this.assignments.clear();
+
+        // Assign each passenger to a vehicle
+        for (int i = 0; i < this.passengers.size(); i++) {
+            Passenger p = this.passengers.get(i);
+            Vehicle v = this.vehicles.get(i);
+            if (p == null || v == null) {
+                throw new OperationDeniedException(this.INVALID_ACTION);
+            }
+            String assignment = "Passenger " + p.getPassengerID() + " assigned to vehicle " + v.getVehicleID();
+            this.assignments.add(assignment);
+        }
     }
 
-
     public ArrayList<String> getRecords() {
-        /*TODO*/
-        return null;
+        return this.assignments;
     }
 }

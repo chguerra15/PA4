@@ -13,43 +13,56 @@ public class ShareableRide implements RideScheduler{
     private ArrayList<String> assignments;
 
     public ShareableRide(){
-        /*TODO*/
+        vehicles = new ArrayList<Vehicle>();
+        passengers = new ArrayList<Passenger>();
+        assignments = new ArrayList<String>();
     }
 
 
     public ArrayList<Vehicle> getVehicles() {
-        /*TODO*/
-        return null;
+        return vehicles;
     }
-
 
     public ArrayList<Passenger> getPassengers() {
-        /*TODO*/
-        return null;
+        return passengers;
     }
-
 
     public boolean addPassenger(Passenger p) throws OperationDeniedException {
-        /*TODO*/
-        return false;
+        if (!(p instanceof ValuePassenger)) {
+            throw new OperationDeniedException(DENIED_PASSENGER_GROUP);
+        }
+        if (passengers.contains(p)) {
+            return false;
+        }
+        passengers.add(p);
+        return true;
     }
-
-
 
     public boolean addVehicle(Vehicle v) {
-        /*TODO*/
-        return false;
+        if (vehicles.contains(v)) {
+            return false;
+        }
+        vehicles.add(v);
+        return true;
     }
-
-
-
     public void assignPassengerToVehicle() throws OperationDeniedException {
-        /*TODO*/
+        int totalSeats = vehicles.size() * CARPOOL_LIMIT;
+        if (passengers.size() > totalSeats) {
+            throw new OperationDeniedException("There are not enough seats available for all passengers.");
+        }
+        for (Vehicle vehicle : vehicles) {
+            ArrayList<Passenger> assignedPassengers = new ArrayList<Passenger>();
+            for (int i = 0; i < CARPOOL_LIMIT && !passengers.isEmpty(); i++) {
+                assignedPassengers.add(passengers.remove(0));
+            }
+            if (!assignedPassengers.isEmpty()) {
+                assignments.add(vehicle.getVehicleInfo() + ": " + assignedPassengers.toString());
+            }
+        }
     }
 
 
     public ArrayList<String> getRecords() {
-        /*TODO*/
-        return null;
+        return assignments;
     }
 }
