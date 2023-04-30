@@ -1,7 +1,7 @@
 /**
- * TODO
+ * Premium Vehicles only, very limited vehicles, chidlren of vehicle class.
  * @author Christian Guerra
- * @since  TODO
+ * @since  April 28th, 2023
  */
 public class PremiumVehicle extends Vehicle{
 
@@ -13,6 +13,11 @@ public class PremiumVehicle extends Vehicle{
     private static final String DENIED_PASSENGER_GROUP =
             "This operation is disabled in your passenger group.";
 
+    /**
+     *
+     * @param VehicleName String of the name of the vehicle, must be premium car
+     * @throws OperationDeniedException returns error if not found
+     */
     public PremiumVehicle(String VehicleName)
             throws OperationDeniedException {
         super(VehicleName);
