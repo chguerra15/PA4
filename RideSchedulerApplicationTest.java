@@ -158,6 +158,28 @@ public class RideSchedulerApplicationTest {
         assertFalse(ride2.addVehicle(v1));
     }
 
+    @Test
+    public void testAddPassengerToVehicle() throws OperationDeniedException {
+        Vehicle vehicle = new PremiumVehicle("Ferrari");
+        Passenger passenger = new ValuePassenger("John", "Pork");
+        boolean result = vehicle.addPassengerToVehicle(passenger);
+        assertTrue(result);
+        result = vehicle.addPassengerToVehicle(passenger);
+        assertFalse(result);
+        Passenger passenger2 = new StandardPassenger("Bob", "I don't like cars");
+        assertThrows(OperationDeniedException.class, () -> vehicle.addPassengerToVehicle(passenger2));
+    }
+
+    @Test
+    void testAddPassengerToVehicle2() {
+        EconomyVehicle vehicle = new EconomyVehicle("Honda Civic");
+        Passenger passenger1 = new StandardPassenger("Alice", "Wonderland");
+        assertTrue(vehicle.addPassengerToVehicle(passenger1));
+        assertFalse(vehicle.addPassengerToVehicle(passenger1));
+        Passenger passenger2 = new StandardPassenger("Bob", "Constructor");
+        assertTrue(vehicle.addPassengerToVehicle(passenger2));
+    }
+
 
 
 }

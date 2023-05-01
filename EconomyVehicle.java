@@ -22,7 +22,12 @@ public class EconomyVehicle extends Vehicle{
     }
 
     public String getVehicleInfo() {
-        String passengers = String.join(", ", this.passengerNames);
-        return this.getVehicleName() + " [" + this.getDate() + "]: [" + passengers + "]";
+        String passengerNames = "";
+        for (Passenger p : currentPassengers) {
+            passengerNames += p.displayName() + " ";
+        }
+        return String.format("%s [%s]: [%s]", this.getVehicleName(), this.getDate(), passengerNames);
     }
+
+
 }

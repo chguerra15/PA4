@@ -35,7 +35,17 @@ public class PremiumVehicle extends Vehicle{
     }
 
     public boolean addPassengerToVehicle(Passenger p) throws OperationDeniedException{
-    return false;}
+        if (!(p instanceof ValuePassenger)) {
+            throw new OperationDeniedException(DENIED_PASSENGER_GROUP);
+        }
+        ValuePassenger valuePassenger = (ValuePassenger) p;
+        if (passengerNames.contains(valuePassenger.displayName())) {
+            return false;
+        }
+        currentPassengers.add(valuePassenger);
+        passengerNames.add(valuePassenger.displayName());
+        return true;
+    }
 
     // bmw01 (Premium) [2022-10-08]: [<Value Passenger> Yunyi]
     public String getVehicleInfo() {
