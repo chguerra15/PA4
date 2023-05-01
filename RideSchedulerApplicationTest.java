@@ -125,9 +125,22 @@ public class RideSchedulerApplicationTest {
                     "The input vehicle is not a premium vehicle.", e.getMessage());
         }
     }@Test
-    public void testPremiumVehicleConstructorValid() throws OperationDeniedException {
+    public void testPremiumVehicleIDandPassanger() throws OperationDeniedException {
         PremiumVehicle premiumVehicle = new PremiumVehicle("Lamborghini");
         assertEquals(1, premiumVehicle.getVehicleID());
+        PremiumVehicle premiumVehicle1 = new PremiumVehicle("Ferrari");
+        premiumVehicle1.vehicleID = 12345;
+        assertEquals(12345, premiumVehicle1.getVehicleID());
+        PremiumVehicle ChrisCar = new PremiumVehicle("mercedes8");
+        ChrisCar.vehicleID = 17660168;
+        assertEquals(17660168, ChrisCar.getVehicleID());
+        assertEquals("mercedes8", ChrisCar.getVehicleName());
+        ValuePassenger chris = new ValuePassenger("Chris", "Data Scientist");
+        ChrisCar.addPassengerToVehicle(chris);
+        assertEquals("mercedes8 (Premium) [2023-05-01]: [<Value Passenger> Chris]",
+                ChrisCar.getVehicleInfo());
+
+
     }@Test
     public void testPremiumVehicleConstructorInvalid() {
         assertThrows(OperationDeniedException.class, () -> {
@@ -138,9 +151,11 @@ public class RideSchedulerApplicationTest {
         assertEquals(1, yunyi.getPassengerID());
         yunyi.passengerID = 123456;
         assertEquals(Integer.valueOf(123456), yunyi.getPassengerID());
-    }
-
-    @Test
+        chris.passengerID = 17660194;
+        assertEquals(17660194, chris.getPassengerID());
+        chris.passengerID = 1234;
+        assertEquals(1234, chris.getPassengerID());
+    }@Test
     public void testAddPassenger() throws OperationDeniedException {
         ShareableRide ride = new ShareableRide();
         Passenger p1 = new ValuePassenger("John", "Doe");
@@ -151,19 +166,24 @@ public class RideSchedulerApplicationTest {
             ride.addPassenger(p2);
             fail("Expected OperationDeniedException");
         } catch (OperationDeniedException e) {
-            assertEquals("This operation is disabled in your passenger group.", e.getMessage());
+            assertEquals("This operation is disabled in your passenger group.",
+                    e.getMessage());
         }
-    }
-
-    @Test
+    }@Test
     public void testAddVehicle(){
         ShareableRide ride2 = new ShareableRide();
         Vehicle v1 = new EconomyVehicle("Audi");
         assertTrue(ride2.addVehicle(v1));
         assertFalse(ride2.addVehicle(v1));
-    }
-
-    @Test
+        ShareableRide ride3 = new ShareableRide();
+        Vehicle c3 = new EconomyVehicle("Toyota3");
+        assertTrue(ride3.addVehicle(c3));
+        assertFalse(ride3.addVehicle(c3));
+        ShareableRide ride4 = new ShareableRide();
+        Vehicle v4 = new EconomyVehicle("Audi");
+        assertTrue(ride4.addVehicle(v4));
+        assertFalse(ride4.addVehicle(v4));
+    }@Test
     public void testAddPassengerToVehicle() throws OperationDeniedException {
         Vehicle vehicle = new PremiumVehicle("Ferrari");
         Passenger passenger = new ValuePassenger("John", "Pork");
@@ -172,10 +192,9 @@ public class RideSchedulerApplicationTest {
         result = vehicle.addPassengerToVehicle(passenger);
         assertFalse(result);
         Passenger passenger2 = new StandardPassenger("Bob", "I don't like cars");
-        assertThrows(OperationDeniedException.class, () -> vehicle.addPassengerToVehicle(passenger2));
-    }
-
-    @Test
+        assertThrows(OperationDeniedException.class, () -> vehicle.addPassengerToVehicle
+                (passenger2));
+    }@Test
     void testAddPassengerToVehicle2() {
         EconomyVehicle vehicle = new EconomyVehicle("Honda Civic");
         Passenger passenger1 = new StandardPassenger("Alice", "Wonderland");
@@ -183,13 +202,26 @@ public class RideSchedulerApplicationTest {
         assertFalse(vehicle.addPassengerToVehicle(passenger1));
         Passenger passenger2 = new StandardPassenger("Bob", "Constructor");
         assertTrue(vehicle.addPassengerToVehicle(passenger2));
+    }@Test
+    void testGetVehicleInfo() throws OperationDeniedException {
+        vehicle2.addPassengerToVehicle(chris);
+        assertEquals("Ferrari (Premium) [" + vehicle2.getDate() + "]:" +
+                        " [<Value Passenger> Christian]"
+                , vehicle2.getVehicleInfo());
     }
 
     @Test
-    void testGetVehicleInfo() throws OperationDeniedException {
-        vehicle2.addPassengerToVehicle(chris);
-        assertEquals("Ferrari (Premium) [" + vehicle2.getDate() + "]: [<Value Passenger> Christian]"
-                , vehicle2.getVehicleInfo());
+    public void testAddPassengerAndVehicle() {
+        StandardRide ride = new StandardRide();
+        Passenger passenger = new StandardPassenger("John", "prok");
+        Vehicle vehicle = new EconomyVehicle("Sedan");
+
+        assertTrue(ride.addPassenger(passenger));
+        assertTrue(ride.addVehicle(vehicle));
+        assertEquals(1, ride.getPassengers().size());
+        assertEquals(1, ride.getVehicles().size());
+        assertEquals(passenger, ride.getPassengers().get(0));
+        assertEquals(vehicle, ride.getVehicles().get(0));
     }
 
 

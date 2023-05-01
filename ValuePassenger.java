@@ -4,9 +4,9 @@
  */
 
 /**
- * TODO
- * @author TODO
- * @since  TODO
+ * Value Passenger, children of Passenger Class
+ * @author Christian Guerra
+ * @since  April 28th 2023
  */
 public class ValuePassenger extends Passenger{
 

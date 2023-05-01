@@ -32,6 +32,10 @@ public class StandardRide implements RideScheduler{
         return this.vehicles.add(v);
     }
 
+    /**
+     *
+     * @throws OperationDeniedException if vehicle size is full
+     */
     public void assignPassengerToVehicle() throws OperationDeniedException {
         // Check that each passenger has exactly one vehicle assigned
         if (this.passengers.size() != this.vehicles.size()) {
@@ -48,11 +52,16 @@ public class StandardRide implements RideScheduler{
             if (p == null || v == null) {
                 throw new OperationDeniedException(this.INVALID_ACTION);
             }
-            String assignment = "Passenger " + p.getPassengerID() + " assigned to vehicle " + v.getVehicleID();
+            String assignment = "Passenger " + p.getPassengerID() +
+                    " assigned to vehicle " + v.getVehicleID();
             this.assignments.add(assignment);
         }
     }
 
+    /**
+     *
+     * @return the assignments of the car
+     */
     public ArrayList<String> getRecords() {
         return this.assignments;
     }

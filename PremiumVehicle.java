@@ -34,6 +34,13 @@ public class PremiumVehicle extends Vehicle{
         vehicleID = 1;
     }
 
+    /**
+     *
+     * @param p takes in passenger object
+     * @return boolean value of if passenger is a valued passenger and not standard, as well as
+     * if it is already on the vehicle or not
+     * @throws OperationDeniedException error if passenger isnt a valued passenger
+     */
     public boolean addPassengerToVehicle(Passenger p) throws OperationDeniedException{
         if (!(p instanceof ValuePassenger)) {
             throw new OperationDeniedException(DENIED_PASSENGER_GROUP);
@@ -48,6 +55,11 @@ public class PremiumVehicle extends Vehicle{
     }
 
     // bmw01 (Premium) [2022-10-08]: [<Value Passenger> Yunyi]
+
+    /**
+     *
+     * @return String of Vehicle Information, returns date vehicle name and passenger name.
+     */
     public String getVehicleInfo() {
         return String.format("%s (Premium) [%s]: %s", getVehicleName(), getDate(), passengerNames);
     }
