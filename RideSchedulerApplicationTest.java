@@ -188,7 +188,7 @@ public class RideSchedulerApplicationTest {
     @Test
     void testGetVehicleInfo() throws OperationDeniedException {
         vehicle2.addPassengerToVehicle(chris);
-        assertEquals("Ferrari (Premium) [" + vehicle2.getDate() + "]: [[<Value Passenger> Christian]]"
+        assertEquals("Ferrari (Premium) [" + vehicle2.getDate() + "]: [<Value Passenger> Christian]"
                 , vehicle2.getVehicleInfo());
     }
 

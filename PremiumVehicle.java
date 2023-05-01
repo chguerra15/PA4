@@ -49,7 +49,7 @@ public class PremiumVehicle extends Vehicle{
 
     // bmw01 (Premium) [2022-10-08]: [<Value Passenger> Yunyi]
     public String getVehicleInfo() {
-        return String.format("%s (Premium) [%s]: [%s]", getVehicleName(), getDate(), passengerNames);
+        return String.format("%s (Premium) [%s]: %s", getVehicleName(), getDate(), passengerNames);
     }
 
 
