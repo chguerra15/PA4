@@ -20,9 +20,14 @@ public class RideSchedulerApplicationTest {
     StandardPassenger person2;
     StandardPassenger person3;
     StandardPassenger person4;
+    ValuePassenger chris;
+
+    PremiumVehicle vehicle2;
     LocalDate date = LocalDate.now();@BeforeEach
-    public void setup(){
+    public void setup()throws OperationDeniedException {
         yunyi = new ValuePassenger("Yunyi", "Tutor");
+        chris = new ValuePassenger("Christian", "Data Scientist");
+        vehicle2 = new PremiumVehicle("Ferrari");
         car1 = new EconomyVehicle("Audi");
         person1 = new StandardPassenger("Javier", "President");
         person2 = new StandardPassenger("Chris", "Software Engineer");
@@ -178,6 +183,13 @@ public class RideSchedulerApplicationTest {
         assertFalse(vehicle.addPassengerToVehicle(passenger1));
         Passenger passenger2 = new StandardPassenger("Bob", "Constructor");
         assertTrue(vehicle.addPassengerToVehicle(passenger2));
+    }
+
+    @Test
+    void testGetVehicleInfo() throws OperationDeniedException {
+        vehicle2.addPassengerToVehicle(chris);
+        assertEquals("Ferrari (Premium) [" + vehicle2.getDate() + "]: [[<Value Passenger> Christian]]"
+                , vehicle2.getVehicleInfo());
     }
 
 
