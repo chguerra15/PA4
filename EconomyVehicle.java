@@ -1,7 +1,7 @@
 /**
  * Economy Vehicle, only accepts Standard Passengers
- * @author TODO
- * @since  TODO
+ * @author Christian Guerra
+ * @since  April 28th 2023
  */
 public class EconomyVehicle extends Vehicle{
 

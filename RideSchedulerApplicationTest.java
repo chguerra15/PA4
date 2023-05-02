@@ -137,7 +137,9 @@ public class RideSchedulerApplicationTest {
         assertEquals("mercedes8", ChrisCar.getVehicleName());
         ValuePassenger chris = new ValuePassenger("Chris", "Data Scientist");
         ChrisCar.addPassengerToVehicle(chris);
-        assertEquals("mercedes8 (Premium) [2023-05-01]: [<Value Passenger> Chris]",
+        assertEquals("mercedes8 (Premium) [" + ChrisCar.getDate() +"]: [" +
+                        "<Value Passenger>" +
+                        " Chris]",
                 ChrisCar.getVehicleInfo());
 
 
@@ -222,6 +224,20 @@ public class RideSchedulerApplicationTest {
         assertEquals(1, ride.getVehicles().size());
         assertEquals(passenger, ride.getPassengers().get(0));
         assertEquals(vehicle, ride.getVehicles().get(0));
+    }
+
+    @Test
+    public void testDisplayandsetBIO(){
+        Passenger jose = new StandardPassenger("jose", "Rendon");
+        jose.setBio("Hola como estas");
+        assertEquals("Hola como estas", jose.displayBio());
+        Passenger chrisre = new ValuePassenger("Chris", "Ronaldo");
+        chrisre.setBio("Cristiano");
+        assertEquals("Cristiano", chrisre.displayBio());
+        Passenger tito = new StandardPassenger("tito45", "Texis");
+        tito.setBio("Fillmore");
+        assertEquals("Fillmore", tito.displayBio());
+
     }
 
 

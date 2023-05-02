@@ -93,7 +93,7 @@ public class ShareableRide implements RideScheduler{
         if (passengers.size() > totalSeats) {
             throw new OperationDeniedException(INVALID_ACTION);
         }
-        for (Vehicle vehicle : vehicles) {
+        for (Vehicle vehicle : vehicles) {//lopp through all vehicle and verifies carpool capacity
             ArrayList<Passenger> assignedPassengers = new ArrayList<Passenger>();
             for (int i = 0; i < CARPOOL_LIMIT && !passengers.isEmpty(); i++) {
                 assignedPassengers.add(passengers.remove(0));
