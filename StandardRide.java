@@ -37,14 +37,12 @@ public class StandardRide implements RideScheduler{
      * @throws OperationDeniedException if vehicle size is full
      */
     public void assignPassengerToVehicle() throws OperationDeniedException {
-        // Check that each passenger has exactly one vehicle assigned
-        if (this.passengers.size() != this.vehicles.size()) {
+        // Check that each passenger has a vehicle assigned
+        if (this.passengers.size() >= this.vehicles.size()) {
             throw new OperationDeniedException(this.MISMATCH_MSG);
         }
-
         // Clear the previous assignments
         this.assignments.clear();
-
         // Assign each passenger to a vehicle
         for (int i = 0; i < this.passengers.size(); i++) {
             Passenger p = this.passengers.get(i);

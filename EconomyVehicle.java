@@ -38,7 +38,11 @@ public class EconomyVehicle extends Vehicle{
     public String getVehicleInfo() {
         String passengerNames = "";
         for (Passenger p : currentPassengers) {
-            passengerNames += p.displayName() + "";
+            passengerNames += p.displayName() + ", ";
+        }
+        // Remove the trailing comma and space
+        if (!passengerNames.isEmpty()) {
+            passengerNames = passengerNames.substring(0, passengerNames.length() - 2);
         }
         return String.format("%s [%s]: [%s]", this.getVehicleName(), this.getDate(),
                 passengerNames);
